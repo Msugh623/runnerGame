@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import Obstacle from "./Obstacle"
 import { useGameContext } from '../state/Gamecontext'
+import { useStateContext } from '../state/StateContext'
 import { objectSizes, obstacleTypes } from '../assets/schemas'
 
 const GenObstacles = () => {
   const { obstacles, setObstacles } = useGameContext()
+  const { isPlaying, gameOver } = useStateContext()
   const sizes = Object.keys(objectSizes)
   const types = Object.keys(obstacleTypes)
 
@@ -19,12 +21,14 @@ const GenObstacles = () => {
       type: randomType,
       size: randomSize,
       children: [],
-      speed: randomType == 'flyes' ? 10 : 5
+      speed: randomType == 'flyes' ?
+        Math.floor(Math.random() * 11) :
+        Math.floor(Math.random() * 6)
     }
     for (let i = 0; i < numObstacles; i++) {
       newObstacle.children.push(newObstacle.type)
     }
-    setObstacles(prev => ([...prev, newObstacle]))
+    isPlaying && !gameOver && setObstacles(prev => ([...prev, newObstacle]))
   }
 
   useEffect(() => {
