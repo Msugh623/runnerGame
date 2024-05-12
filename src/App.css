@@ -1,0 +1,6 @@
+.obj {
+    max-width: fit-content;
+    overflow: hidden;
+    transition: all .100s;
+    transition-timing-function: linear:
+}
