@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Obstacle from "./Obstacle"
 import { useGameContext } from '../state/Gamecontext'
-import { useStateContext } from '../state/StateContext'
+import { useStateContext } from '../state/Statecontext'
 import { objectSizes, obstacleTypes } from '../assets/schemas'
 
 const GenObstacles = () => {
@@ -22,13 +22,12 @@ const GenObstacles = () => {
       size: randomSize,
       children: [],
       speed: randomType == 'flyes' ?
-        Math.floor(Math.random() * 11) :
-        Math.floor(Math.random() * 6)
+        Math.floor(Math.random() * 35) : 15
     }
     for (let i = 0; i < numObstacles; i++) {
       newObstacle.children.push(newObstacle.type)
     }
-    isPlaying && !gameOver && setObstacles(prev => ([...prev, newObstacle]))
+    setObstacles(prev => ([...prev, newObstacle]))
   }
 
   useEffect(() => {
@@ -36,7 +35,7 @@ const GenObstacles = () => {
     setInterval(() => {
       const rnm = Math.floor(Math.random() * 5000)
       const randomNo = rnm > 2000 ? rnm : 4000
-      setTimeout(addObstacle, randomNo)
+      isPlaying && !gameOver && setTimeout(addObstacle, randomNo)
     }, 5000)
   }, [])
 

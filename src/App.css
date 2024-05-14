@@ -9,11 +9,19 @@
     opacity: 0.7
 }
 
-.runnerBody{
+.runnerBody {
     transition: all .6s;
 }
 
 .runner {
     position: relative;
-    bottom: 25px;
+    bottom: 54px;
+}
+
+.ground {
+    position: fixed;
+    top: 50vh;
+    bottom: 0px;
+    left: 0px;
+    right: 0px
 }

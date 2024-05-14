@@ -2,7 +2,7 @@ import React from 'react'
 
 const Ground = () => {
   return (
-    <div className='nav mt-auto h-50 bg-success'></div>
+    <div className='nav ground bg-success'></div>
   )
 }
 

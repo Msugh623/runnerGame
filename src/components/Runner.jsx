@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useGameContext } from '../state/Gamecontext'
-import { useStateContext } from '../state/StateContext'
+import { useStateContext } from '../state/Statecontext'
 
 const Runner = () => {
   const { runnerConfig, setRunnerConfig } = useGameContext()
@@ -8,9 +8,10 @@ const Runner = () => {
 
   useEffect(() => {
     setRunnerConfig({
-      height: 'md',
-      left: 80,
+      left: window.innerWidth / 4,
       top: `${(vh) / 2}px`,
+      width: 54,
+      height: 54,
     })
   }, [vh])
 
@@ -19,7 +20,11 @@ const Runner = () => {
       position: 'fixed',
       ...runnerConfig
     }}>
-      <div className='bg-info runner px-1 rounded'>
+      <div className='bg-info runner px-1 rounded'
+        style={{
+          width: runnerConfig.width,
+          height: runnerConfig.height,
+        }}>
         runner
       </div>
     </div>

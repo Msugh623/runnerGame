@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Cloud from './Cloud'
 import { objectSizes } from '../assets/schemas'
 import { useGameContext } from '../state/Gamecontext'
-import { useStateContext } from '../state/StateContext'
+import { useStateContext } from '../state/Statecontext'
 
 const GenClouds = () => {
   const { clouds, setClouds } = useGameContext()
@@ -23,14 +23,14 @@ const GenClouds = () => {
     for (let i = 0; i < numObstacles; i++) {
       newCloud.children.push('cloud')
     }
-    clouds.length < 5 && isPlaying && !gameOver && setClouds(prev => ([...prev, newCloud]))
+    setClouds(prev => ([...prev, newCloud]))
   }
   useEffect(() => {
     setTimeout(addCloud)
     setInterval(() => {
       const rnm = Math.floor(Math.random() * 6000)
       const randomNo = rnm > 1000 ? rnm : 5000
-      setTimeout(addCloud, randomNo)
+      clouds.length < 5 && isPlaying && !gameOver && setTimeout(addCloud, randomNo)
     }, 8000)
   }, [])
 

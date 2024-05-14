@@ -18,17 +18,22 @@ const Obstacle = ({ obstc }) => {
   })
 
   useEffect(() => {
-    const runnerClientXMatch = Boolean(Number(config.left) < 125 && Number(config.left) > 80)
+    const runnerClientXMatch = Boolean(Number(config.left) < (Number(runnerConfig.left) + Number(runnerConfig.width)) &&
+      Number(config.left) > Number(runnerConfig.left) - Number((runnerConfig.width - 20)))
     const height = Number(config.height.replace('px', ''))
-    const top = Number(config.top.replace('px', ''))-height || (vh / 2)-height
+    const top = Number(config.top.replace('px', '')) - height || (vh / 2)
+    const bottom = top + height
     const runnerTop = Number(runnerConfig.top.replace('px', ''))
-    const runnerClientYMatch = Boolean((runnerTop < top + height) && (runnerTop > top))
+    const runnerBottom = runnerTop + runnerConfig.height
+    const runnerClientYMatch = Boolean(bottom > runnerTop && runnerBottom > top)
     const isColided = Boolean(runnerClientXMatch && runnerClientYMatch)
-    runnerClientXMatch && console.log(runnerTop, top + height, top)
+
+    runnerClientXMatch &&
+      setTimeout(() => console.log(runnerTop, runnerBottom, top, bottom))
+
     isColided && (() => {
       setIsPlaying(false)
       setGameOver(true)
-      alert('Game Over')
     })()
     isPlaying && !gameOver && setConfig(prev => {
       const speed = obstc.type == 'ground' ?
