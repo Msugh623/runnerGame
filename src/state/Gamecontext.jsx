@@ -4,64 +4,66 @@ import { useStateContext } from './Statecontext'
 const context = createContext()
 
 export default function GameContext({ children }) {
-    const { isPlaying,vh } = useStateContext()
+    const { isPlaying, vh,setDidJump } = useStateContext()
     const [change, setChange] = useState(Number(new Date()))
     const [obstacles, setObstacles] = useState([])
     const [clouds, setClouds] = useState([])
+    const [score, setScore] = useState(0)
+    const [highScore, setHighScore] = useState(Number(localStorage.highScore) || 0)
+    const [log, setLog] = useState('')
 
     const [runnerConfig, setRunnerConfig] = useState({
         height: 'md',
-        left: 50,
+        left: -20,
         top: `${(vh) / 2}px`,
     })
 
     function jump() {
-        setRunnerConfig(prev => ({
-            ...prev,
-            top: `${((vh) / 2) - 30}px`
-        }))
-        setTimeout(() => {
+        setRunnerConfig({
+            left: window.innerWidth / 4,
+            top: `${(vh) / 2}px`,
+            width: 54,
+            height: 54
+        })
+        let jh = Number(runnerConfig.top.replace('px', ''))
+        const interval = setInterval(() => {
+            let nextVal = jh - 10
+            jh = nextVal
             setRunnerConfig(prev => ({
                 ...prev,
-                top: `${((vh) / 2) - 60}px`
+                top: `${nextVal}px`
             }))
-        }, 200)
+        }, 50);
         setTimeout(() => {
-            setRunnerConfig(prev => ({
-                ...prev,
-                top: `${((vh) / 2) - 90}px`
-            }))
-        }, 400)
-        setTimeout(() => {
-            setRunnerConfig(prev => ({
-                ...prev,
-                top: `${((vh) / 2) - 120}px`
-            }))
-        }, 600)
-        setTimeout(() => {
-            setRunnerConfig(prev => ({
-                ...prev,
-                top: `${((vh) / 2) - 80}px`
-            }))
-        }, 800)
-        setTimeout(() => {
-            setRunnerConfig(prev => ({
-                ...prev,
-                top: `${((vh) / 2) - 30}px`
-            }))
-        }, 1000)
-        setTimeout(() => {
-            setRunnerConfig(prev => ({
-                ...prev,
-                top: `${((vh) / 2) - 20}px`
-            }))
-        }, 1400)
-        setTimeout(() => {
-            setRunnerConfig(prev => ({
-                ...prev,
-                top: `${((vh) / 2)}px`
-            }))
-        }, 1600)
+            clearInterval(interval)
+            const newInterval = setInterval(() => {
+                let nextVal = jh + 10
+                jh = nextVal
+                if (nextVal >= (vh) / 2) {
+                    nextVal = vh / 2
+                    setRunnerConfig(prev => ({
+                        ...prev,
+                        top: `${nextVal}px`
+                    }))
+                    return clearInterval(newInterval)
+                }
+                setRunnerConfig(prev => ({
+                    ...prev,
+                    top: `${nextVal}px`
+                }))
+            }, 50);
+            setTimeout(() => {
+                clearInterval(newInterval)
+                setRunnerConfig({
+                    left: window.innerWidth / 4,
+                    top: `${(vh) / 2}px`,
+                    width: 54,
+                    height: 54
+                })
+                setLog('')
+                setDidJump(false)
+            }, 800);
+        }, 800);
     }
 
     useEffect(() => {
@@ -81,7 +83,13 @@ export default function GameContext({ children }) {
                 setObstacles,
                 runnerConfig,
                 setRunnerConfig,
-                jump
+                jump,
+                score,
+                setScore,
+                highScore,
+                setHighScore,
+                log,
+                setLog,
             }}>
             {children}
         </context.Provider>

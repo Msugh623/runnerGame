@@ -1,8 +1,13 @@
+:root{
+    background-color: steelblue;
+}
+
 .obj {
     max-width: fit-content;
+    min-width: 30px;
     overflow: hidden;
     transition: all .100s;
-    transition-timing-function: linear;
+    transition-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .cloud {
@@ -10,7 +15,7 @@
 }
 
 .runnerBody {
-    transition: all .6s;
+    transition: all .1s;
 }
 
 .runner {
@@ -24,4 +29,67 @@
     bottom: 0px;
     left: 0px;
     right: 0px
+}
+
+.bg-slate {
+    background-color: rgba(3, 17, 34, 0.505);
+}
+
+@keyframes Pop {
+    from {
+        position: relative;
+        bottom: 6px;
+        opacity: 0.6;
+    }
+
+    to {
+        scale: 1;
+        opacity: 1;
+    }
+}
+
+.pop {
+    transition: all, .3s;
+    animation-name: Pop;
+    -webkit-animation-name: Pop;
+    animation-duration: .4s;
+    -webkit-animation-duration: .4s;
+    animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    -webkit-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+@keyframes Rotate {
+    from {
+        rotate: -180deg;
+    }
+
+    to {
+        rotate: 0deg;
+    }
+}
+
+.rtt-180 {
+    transition: all, .3s;
+    animation-name: Rotate;
+    -webkit-animation-name: Rotate;
+    animation-duration: .4s;
+    -webkit-animation-duration: .4s;
+    animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    -webkit-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+
+}
+
+.rtt-180:hover {
+    transition: all, .4s;
+    rotate: 40deg;
+    animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    -webkit-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+
+}
+
+.rtt-180:active {
+    transition: all, .4s;
+    rotate: 0deg;
+    animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    -webkit-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
 }

@@ -22,7 +22,7 @@ const GenObstacles = () => {
       size: randomSize,
       children: [],
       speed: randomType == 'flyes' ?
-        Math.floor(Math.random() * 35) : 15
+        Math.floor(Math.random() * 40) : 15
     }
     for (let i = 0; i < numObstacles; i++) {
       newObstacle.children.push(newObstacle.type)
@@ -33,10 +33,10 @@ const GenObstacles = () => {
   useEffect(() => {
     setTimeout(addObstacle)
     setInterval(() => {
-      const rnm = Math.floor(Math.random() * 5000)
-      const randomNo = rnm > 2000 ? rnm : 4000
+      const rnm = Math.floor(Math.random() * 3000)
+      const randomNo = rnm > 2000 ? rnm : 3000
       isPlaying && !gameOver && setTimeout(addObstacle, randomNo)
-    }, 5000)
+    }, 3000)
   }, [])
 
   return (

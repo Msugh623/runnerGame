@@ -11,7 +11,7 @@ const Runner = () => {
       left: window.innerWidth / 4,
       top: `${(vh) / 2}px`,
       width: 54,
-      height: 54,
+      height: 54
     })
   }, [vh])
 
@@ -20,12 +20,12 @@ const Runner = () => {
       position: 'fixed',
       ...runnerConfig
     }}>
-      <div className='bg-info runner px-1 rounded'
+      <div className='bg-info runner p-0 rounded'
         style={{
           width: runnerConfig.width,
           height: runnerConfig.height,
         }}>
-        runner
+        
       </div>
     </div>
   )

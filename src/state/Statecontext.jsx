@@ -7,6 +7,9 @@ export default function StateContext({ children }) {
     const [isPlaying, setIsPlaying] = useState(true)
     const [vh, setVh] = useState(window.innerHeight)
     const [vw, setVw] = useState(window.innerWidth)
+    const [prevScreen, setPrevSrc] = useState('')
+    const [didJump, setDidJump] = useState(false)
+
     useEffect(() => {
         window.onresize = () => {
             setTimeout(() => {
@@ -25,7 +28,11 @@ export default function StateContext({ children }) {
                 vw,
                 setVw,
                 gameOver,
-                setGameOver
+                setGameOver,
+                prevScreen,
+                setPrevSrc,
+                didJump,
+                setDidJump
             }}>
             {children}
         </context.Provider>
