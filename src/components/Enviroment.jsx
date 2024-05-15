@@ -15,10 +15,8 @@ const Enviroment = () => {
         onkeydown = ({ code }) => {
             console.log(code)
             code == 'MediaPlayPause' && setIsPlaying(prev => !prev)
-            code == 'ArrowUp' || code == 'Space' &&
-                (() => {
-                    jump()
-                })()
+            code == 'ArrowUp' && jump()
+            code == 'Space' && jump()
         }
 
     }, [])
