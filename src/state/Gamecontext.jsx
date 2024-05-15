@@ -9,7 +9,7 @@ export default function GameContext({ children }) {
     const [obstacles, setObstacles] = useState([])
     const [clouds, setClouds] = useState([])
     const [score, setScore] = useState(0)
-    const [avrgSpeed, setAvrgSpeed] = useState(30)
+    const [avrgSpeed, setAvrgSpeed] = useState(20)
     const [highScore, setHighScore] = useState(Number(localStorage.highScore) || 0)
     const [log, setLog] = useState('')
 
@@ -28,7 +28,7 @@ export default function GameContext({ children }) {
         })
         let jh = Number(runnerConfig.top.replace('px', ''))
         const interval = setInterval(() => {
-            let nextVal = jh - 10
+            let nextVal = jh - 7
             jh = nextVal
             setRunnerConfig(prev => ({
                 ...prev,
@@ -38,7 +38,7 @@ export default function GameContext({ children }) {
         setTimeout(() => {
             clearInterval(interval)
             const newInterval = setInterval(() => {
-                let nextVal = jh + 10
+                let nextVal = jh + 7
                 jh = nextVal
                 if (nextVal >= (vh) / 2) {
                     nextVal = vh / 2
@@ -63,8 +63,8 @@ export default function GameContext({ children }) {
                 })
                 setLog('')
                 setDidJump(false)
-            }, 300);
-        }, 300);
+            }, 400);
+        }, 400);
     }
 
     useEffect(() => {
@@ -74,7 +74,7 @@ export default function GameContext({ children }) {
         }, 100)
         setInterval(() => {
             setAvrgSpeed(prev => prev + 5)
-        }, 1000 * 15)
+        }, 1000 * 60)
     }, [])
 
     return (
