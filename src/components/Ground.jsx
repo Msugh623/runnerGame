@@ -19,7 +19,7 @@ const Ground = () => {
   }, [change])
 
   return (
-    <div className='nav ground bg-success' onClick={jump}>
+    <div className='nav ground' onClick={jump}>
       <div className="d-flex">
         <div className="mt-auto small ps-2">
           <div>{log}</div>

@@ -3,7 +3,7 @@ import { useGameContext } from '../state/Gamecontext'
 import { useStateContext } from '../state/Statecontext'
 
 const Runner = () => {
-  const { runnerConfig, setRunnerConfig } = useGameContext()
+  const { runnerConfig, setRunnerConfig, gameOver } = useGameContext()
   const { vh } = useStateContext()
 
   useEffect(() => {
@@ -20,13 +20,12 @@ const Runner = () => {
       position: 'fixed',
       ...runnerConfig
     }}>
-      <div className='bg-info runner p-0 rounded'
+      <img className={`swing runner p-0 rounded`}
+        src='/media/cycling (1).png'
         style={{
           width: runnerConfig.width,
           height: runnerConfig.height,
-        }}>
-        
-      </div>
+        }} />
     </div>
   )
 }

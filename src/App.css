@@ -1,4 +1,4 @@
-:root{
+:root {
     background-color: steelblue;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .runnerBody {
-    transition: all .1s;
+    /* transition: all .1s; */
 }
 
 .runner {
@@ -24,6 +24,7 @@
 }
 
 .ground {
+    background: rgba(0, 128, 0, 0) !important;
     position: fixed;
     top: 50vh;
     bottom: 0px;
@@ -67,6 +68,19 @@
         rotate: 0deg;
     }
 }
+@keyframes Swing {
+    0% {
+        rotate: -2deg;
+    }
+
+    50%{
+        rotate: 2deg;
+    }
+
+    100%{
+        rotate: -2deg;
+    }
+}
 
 .rtt-180 {
     transition: all, .3s;
@@ -92,4 +106,15 @@
     rotate: 0deg;
     animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
     -webkit-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.swing{
+    transition: all, .3s;
+    animation-name: Swing;
+    -webkit-animation-name: Swing;
+    animation-duration: 1s;
+    -webkit-animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    -webkit-animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1);
+    animation-iteration-count: infinite;
 }

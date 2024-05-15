@@ -5,7 +5,7 @@ export const objectSizes = {
 }
 
 export const obstacleTypes = {
-  'ground': "<.:.>",
-  'flyes': "<-"
+  'ground': "/media/cactus.png",
+  'flyes': "/media/gawg3gky.png"
 }
 

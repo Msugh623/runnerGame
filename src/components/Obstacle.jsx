@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Suspense } from 'react'
 import { objectSizes, obstacleTypes } from '../assets/schemas'
 import { useGameContext } from '../state/Gamecontext'
 import { useStateContext } from '../state/Statecontext'
@@ -8,11 +8,11 @@ const Obstacle = ({ obstc }) => {
   const { isPlaying, setIsPlaying, gameOver, setGameOver, vh, setPrevSrc } = useStateContext()
 
   const [config, setConfig] = useState({
-    height: objectSizes[obstc.size],
+    height: obstc.type == 'ground' ? '50px' : '20px',
     left: window.innerWidth,
     top: obstc.type == 'flyes' ?
       `${(Math.floor(Math.random() * vh) / 2) / 1.2}px`
-      : `calc( ${vh / 2}px - ${objectSizes[obstc.size]})`,
+      : `calc( ${vh / 2}px - ${'50px'})`,
     id: obstc.id,
     children: obstc.children
   })
@@ -60,15 +60,21 @@ const Obstacle = ({ obstc }) => {
             : prev.top
         }
       })
-          },);
+    },);
   }, [change])
 
   return (
-    <pre className={`rounded mt-auto ${obstc.type == 'ground' ? 'bg-danger' : 'bg-dark'} obj p-0`} style={{
+    <pre className={`rounded mt-auto obj p-0`} style={{
       position: 'fixed',
-      ...config
+      ...config,
+      height: ''
     }}>
-      {config.children.map(child => obstacleTypes[child] || 'ground')}
+      {config.children.length ?
+        config.children.map((child,i) => (
+          <img key={i} src={obstacleTypes[child|| 'ground'] } width={'50px'} alt='Obstacle' />
+        ))
+        :<img src={obstacleTypes['ground'] } width={'50px'} alt='Obstacle' />
+    }
     </pre>
   )
 }

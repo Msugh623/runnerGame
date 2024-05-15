@@ -4,11 +4,12 @@ import { useStateContext } from './Statecontext'
 const context = createContext()
 
 export default function GameContext({ children }) {
-    const { isPlaying, vh,setDidJump } = useStateContext()
+    const { isPlaying, vh, setDidJump } = useStateContext()
     const [change, setChange] = useState(Number(new Date()))
     const [obstacles, setObstacles] = useState([])
     const [clouds, setClouds] = useState([])
     const [score, setScore] = useState(0)
+    const [avrgSpeed, setAvrgSpeed] = useState(30)
     const [highScore, setHighScore] = useState(Number(localStorage.highScore) || 0)
     const [log, setLog] = useState('')
 
@@ -33,7 +34,7 @@ export default function GameContext({ children }) {
                 ...prev,
                 top: `${nextVal}px`
             }))
-        }, 50);
+        }, 18);
         setTimeout(() => {
             clearInterval(interval)
             const newInterval = setInterval(() => {
@@ -51,7 +52,7 @@ export default function GameContext({ children }) {
                     ...prev,
                     top: `${nextVal}px`
                 }))
-            }, 50);
+            }, 18);
             setTimeout(() => {
                 clearInterval(newInterval)
                 setRunnerConfig({
@@ -62,8 +63,8 @@ export default function GameContext({ children }) {
                 })
                 setLog('')
                 setDidJump(false)
-            }, 800);
-        }, 800);
+            }, 300);
+        }, 300);
     }
 
     useEffect(() => {
@@ -71,6 +72,9 @@ export default function GameContext({ children }) {
             const playState = isPlaying
             playState && setChange(Number(new Date()))
         }, 100)
+        setInterval(() => {
+            setAvrgSpeed(prev => prev + 5)
+        }, 1000 * 15)
     }, [])
 
     return (
@@ -90,6 +94,8 @@ export default function GameContext({ children }) {
                 setHighScore,
                 log,
                 setLog,
+                avrgSpeed,
+                setAvrgSpeed
             }}>
             {children}
         </context.Provider>

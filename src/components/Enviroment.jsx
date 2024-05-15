@@ -24,7 +24,7 @@ const Enviroment = () => {
     return (
         <div className='vh-100 w-100 bg-primary text-white d-flex flex-column ox-hidden' id='env'>
             {!gameOver ?
-                < >
+                <>
                     <GenClouds />
                     <GenObstacles />
                     <Runner />
