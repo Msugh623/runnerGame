@@ -22,7 +22,7 @@ const Obstacle = ({ obstc }) => {
       const runnerClientXMatch = Boolean(Number(config.left) < (Number(runnerConfig.left) + Number(runnerConfig.width)) &&
         Number(config.left) > Number(runnerConfig.left) - Number((runnerConfig.width - 20)))
       const height = Number(config.height.replace('px', ''))
-      const top = Number(config.top.replace('px', '')) - height || (vh / 2) - height
+      const top = (Number(config.top.replace('px', '')) - height)+2 || ((vh / 2) - height)+2
       const bottom = top + height + height;
       const runnerTop = Number(runnerConfig.top.replace('px', '')) - Number(runnerConfig.height)
       const runnerBottom = runnerTop + runnerConfig.height

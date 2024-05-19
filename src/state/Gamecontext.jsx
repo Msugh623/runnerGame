@@ -34,7 +34,7 @@ export default function GameContext({ children }) {
                 ...prev,
                 top: `${nextVal}px`
             }))
-        }, 18);
+        }, 20);
         setTimeout(() => {
             clearInterval(interval)
             const newInterval = setInterval(() => {
@@ -52,7 +52,7 @@ export default function GameContext({ children }) {
                     ...prev,
                     top: `${nextVal}px`
                 }))
-            }, 18);
+            }, 20);
             setTimeout(() => {
                 clearInterval(newInterval)
                 setRunnerConfig({
@@ -63,8 +63,8 @@ export default function GameContext({ children }) {
                 })
                 setLog('')
                 setDidJump(false)
-            }, 400);
-        }, 400);
+            }, 500);
+        }, 500);
     }
 
     useEffect(() => {
