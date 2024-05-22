@@ -6,6 +6,7 @@ import { useStateContext } from '../state/Statecontext'
 const Obstacle = ({ obstc }) => {
   const { change, setObstacles, runnerConfig } = useGameContext()
   const { isPlaying, setIsPlaying, gameOver, setGameOver, vh, setPrevSrc } = useStateContext()
+  const [didColide, setDidColide] = useState(false)
 
   const [config, setConfig] = useState({
     height: obstc.type == 'ground' ? '50px' : '20px',
@@ -22,7 +23,7 @@ const Obstacle = ({ obstc }) => {
       const runnerClientXMatch = Boolean(Number(config.left) < (Number(runnerConfig.left) + Number(runnerConfig.width)) &&
         Number(config.left) > Number(runnerConfig.left) - Number((runnerConfig.width - 20)))
       const height = Number(config.height.replace('px', ''))
-      const top = (Number(config.top.replace('px', '')) - height)+2 || ((vh / 2) - height)+2
+      const top = (Number(config.top.replace('px', '')) - height) + 2 || ((vh / 2) - height) + 2
       const bottom = top + height + height;
       const runnerTop = Number(runnerConfig.top.replace('px', '')) - Number(runnerConfig.height)
       const runnerBottom = runnerTop + runnerConfig.height
@@ -35,9 +36,12 @@ const Obstacle = ({ obstc }) => {
       //   setTimeout(() => console.log(runnerTop, runnerBottom, top, bottom))
 
       isColided && (() => {
+        setDidColide(true)
         setIsPlaying(false)
-        setGameOver(true)
-        setPrevSrc(document?.getElementById('env')?.innerHTML)
+        setTimeout(() => {
+          setPrevSrc(document?.getElementById('env')?.innerHTML)
+          setGameOver(true)
+        }, 50);
       })()
       isPlaying && !gameOver && setConfig(prev => {
         const speed = obstc.type == 'ground' ?
@@ -64,17 +68,17 @@ const Obstacle = ({ obstc }) => {
   }, [change])
 
   return (
-    <pre className={`rounded mt-auto obj p-0`} style={{
+    <pre className={`rounded mt-auto obj z-2 p-0`} style={{
       position: 'fixed',
       ...config,
       height: ''
     }}>
       {config.children.length ?
-        config.children.map((child,i) => (
-          <img key={i} src={obstacleTypes[child|| 'ground'] } width={'50px'} alt='Obstacle' />
+        config.children.map((child, i) => (
+          <img key={i} src={obstacleTypes[child || 'ground']} className={didColide && 'rotate-45'} width={'50px'} alt='Obstacle' />
         ))
-        :<img src={obstacleTypes['ground'] } width={'50px'} alt='Obstacle' />
-    }
+        : <img src={obstacleTypes['ground']} width={'50px'} className={didColide && 'rotate-45'} alt='Obstacle' />
+      }
     </pre>
   )
 }
