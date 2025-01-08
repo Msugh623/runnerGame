@@ -22,7 +22,6 @@
 .ground {
     background: rgba(0, 128, 0, 0) !important;
     position: fixed;
-    top: 50vh;
     bottom: 0px;
     left: 0px;
     right: 0px
