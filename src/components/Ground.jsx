@@ -19,7 +19,7 @@ const Ground = () => {
   }, [change])
 
   return (
-    <div className='nav ground bg-success z-1' onClick={jump} style={{top:window.innerHeight+'px'}}>
+    <div className='nav ground bg-success z-1' onClick={jump} style={{top:(window.innerHeight/2)+'px'}}>
       <div className="d-flex">
         <div className="mt-auto small ps-2">
           <div>{log}</div>
